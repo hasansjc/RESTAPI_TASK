@@ -1,13 +1,16 @@
-const port = process.env.DB_PORT;
-const host = process.env.DB_HOST;
+const config = require('config')
+
+const port = config.get('DB_PORT');
+const host = config.get('DB_HOST');
 
 const mongoose = require ('mongoose');
 
-async function dbconnect(){
-    const conn = await mongoose.connect(`mongodb://${host}:${port}/test_restapi`);
-if(conn){
-    console.log("db connected...");
-}
-}
-dbconnect();
+mongoose.connect(`mongodb://${host}:${port}/test_restapi`)
+    .then(()=>{
+        console.log("db connected...");
+    })
+    .catch((err)=>{
+        console.log(err);
+    });
+
 

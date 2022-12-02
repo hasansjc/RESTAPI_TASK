@@ -1,10 +1,10 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema;
-
-const taskSchema = new Schema({
+const mongoose = require('mongoose');
+const {User}= require('./user');
+const taskSchema = new mongoose.Schema({
     user : {
-        type: String,
-        required: true
+        type : mongoose.Schema.Types.ObjectId,
+        ref : User,
+        required : true
       },
     project : {
         type: String,
@@ -15,7 +15,10 @@ const taskSchema = new Schema({
         required: true
       }, 
     description : String, 
-    starttime:Date,
+    starttime:{
+        type:Date,
+        default: Date.now
+    },
     endtime:Date, 
     status :{
         type: String,
@@ -23,4 +26,4 @@ const taskSchema = new Schema({
       },
   });
 
-module.exports = mongoose.model('tasks', taskSchema); 
+module.exports = mongoose.model('Task', taskSchema); 

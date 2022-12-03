@@ -1,6 +1,5 @@
 const express = require('express')
 const router = express.Router();
-const jwt = require("jsonwebtoken");
 const Joi = require('joi');
 const {User} = require('../db/models/user');
 router.post('/',async(req,res)=>{
@@ -21,10 +20,8 @@ router.post('/',async(req,res)=>{
         if(password != userexist.password){
             return res.status(400).send("Invalid username or password")
         }
-        const token = jwt.sign({ _id: userexist._id, },process.env.JWT_SECRET_KEY);  
-          console.log('token==========>',token);
-          userexist.token = token;
-          res.status(201).json(userexist);
+        const token = userexist.generateAuthToken();
+          res.status(201).header('x-access-token',token).json(userexist);
     
 })
 function validate(req){

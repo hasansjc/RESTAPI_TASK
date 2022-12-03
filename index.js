@@ -4,15 +4,15 @@ const config = require('config');
 const user = require('./routes/user');
 const project = require('./routes/project');
 const task = require('./routes/tasks')
-const auth = require('./routes/auth')
-const port = process.env.PORT;
+const login = require('./routes/login')
+const port = config.get('PORT');
 
 require('./db/dbconn');
 app.use(express.json());
 app.use('/user',user);
 app.use('/project',project);
 app.use('/task',task);
-app.use('/auth',auth);
+app.use('/login',login);
 
 if(!(config.get('jwtPrivateKey'))){
     console.error("fatal error");

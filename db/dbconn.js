@@ -1,7 +1,7 @@
 const config = require('config')
 
-const port = config.get('DB_PORT');
-const host = config.get('DB_HOST');
+const port = config.get('DB.DB_PORT');
+const host = config.get('DB.DB_HOST');
 
 const mongoose = require ('mongoose');
 

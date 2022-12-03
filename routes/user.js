@@ -2,22 +2,33 @@ const express = require('express');
 const router = express.Router();
 const {User,validateUser} = require('../db/models/user');
 const _ = require('lodash');
-
-router.get('/:id', async(req, res)=>{
+const auth = require("../middlewares/auth")
+// router.get('/:id',auth, async(req, res)=>{
     
-    let _id = req.params['id'];
+//     let _id = req.params['id'];
+//     try {
+//         const userDetails = await User.findOne({_id});
+//         if(!userDetails) return res.json({message:"User not found"})
+//         console.log("user details of individual user",userDetails);
+//         res.json(userDetails)
+//     } catch (error) {
+//         console.log(error);
+//     }
+    
+// })
+router.get('/me',auth, async(req, res)=>{
+    
     try {
-        const userDetails = await User.findOne({_id});
-        if(!userDetails) return res.json({message:"User not found"})
-        console.log("user details of individual user",userDetails);
-        res.json(userDetails)
+        const userDetails = await User.findById(req.user._id);
+        res.status(200).send(userDetails)
+        return;
     } catch (error) {
         console.log(error);
     }
     
 })
 
-router.get('/', async(req, res)=>{
+router.get('/',auth, async(req, res)=>{
     try {
         const users = await User
         .find()

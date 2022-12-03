@@ -1,5 +1,7 @@
 {
     "PORT" : 8000,
-    "DB_HOST" : "localhost",
-    "DB_PORT" : 27017
+    "DB":{
+        "DB_HOST" : "localhost",
+        "DB_PORT" : 27017
+    }
 }

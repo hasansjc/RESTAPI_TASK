@@ -6,6 +6,7 @@ const project = require('./routes/project');
 const task = require('./routes/tasks')
 const login = require('./routes/login')
 const port = config.get('PORT');
+const error = require('./middlewares/error')
 
 require('./db/dbconn');
 app.use(express.json());
@@ -13,6 +14,7 @@ app.use('/user',user);
 app.use('/project',project);
 app.use('/task',task);
 app.use('/login',login);
+app.use(error);
 
 if(!(config.get('jwtPrivateKey'))){
     console.error("fatal error");
